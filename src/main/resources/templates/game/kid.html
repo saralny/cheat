@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="iframe-h" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Welcome</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script th:src="@{/js/jquery-3.2.1.min.js}" src="../../static/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script th:src="@{/js/game/kid.js}" src="../../static/js/game/kid.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+
+        .hand {
+            width: 80px;
+            height: 120px;
+            border:1px #FF0000 solid;
+            margin-left: -40px;
+            float: left;
+            background-color: #00F7DE
+        }
+
+        .handOne {
+            width: 80px;
+            height: 120px;
+            border:1px #FF0000 solid;
+            float: left;
+            background-color: #00F7DE
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="bodyDiv">
+
+        <div>
+            <!-- 游戏信息 -->
+            <div>
+                <div id="username" style="display: block; float: left; margin-right: 10px;" > 昵称:<input  > </div>
+                <div id="login" style="display: block; float: left; margin-right: 10px;" > <button  >登录</button> </div>
+                <div id="startNumber" style="display: none; float: left; margin-right: 10px;" > 开局人数:<input  > </div>
+                <div id="matching" style="display: none; float: left; margin-right: 10px;" > <button >开始匹配</button> </div>
+                <div id="schedule" style="float: left; margin-right: 10px"></div>
+            </div>
+            <div style="clear: both;"></div>
+            <!-- 聊天 -->
+            <div id="talkDiv" style="float: right; margin-right: 10px; margin-top: -27px;">
+
+            </div>
+
+            <!-- 桌牌 -->
+            <div id="desk" style="margin-top: 100px; ">
+
+            </div>
+
+
+            <!-- 操作栏 -->
+            <div id="handle" style="margin-top: 100px">
+
+                <div style="cursor:pointer;">
+                    <div id="wait" style="display:none;">等待对方操作...</div>
+                    <div id="stateDiv" style="float: left; display: none; font-size: 18px">
+                        <span number=1>1</span>&nbsp;
+                        <span number=2>2</span>&nbsp;
+                        <span number=3>3</span>&nbsp;
+                        <span number=4>4</span>&nbsp;
+                        <span number=5>5</span>&nbsp;
+                        <span number=6>6</span>&nbsp;
+                        <span number=7>7</span>&nbsp;
+                        <span number=8>8</span>&nbsp;
+                        <span number=9>9</span>&nbsp;
+                        <span number=10>10</span>&nbsp;
+                        <span number=11>J</span>&nbsp;
+                        <span number=12>Q</span>&nbsp;
+                        <span number=13>K</span>&nbsp;
+                    </div>
+                    <div id="takeOutBtn" style="float: left; display:none;">出牌</div>
+                    <div id="exposeBtn" style="float: left; margin-left: 30px; display:none">揭牌</div>
+                    <div id="passBtn" style="float: left; margin-left: 30px; display:none">过</div>
+                </div>
+            </div>
+
+            <div style="clear: both;"></div>
+
+            <!-- 手牌 -->
+            <div id="hand" style="margin-top: 100px; cursor:pointer;">
+            </div>
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>
