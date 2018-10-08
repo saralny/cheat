@@ -3,7 +3,7 @@ package com.group.model;
 import java.util.ArrayList;
 
 public class Operate {
-    // 0出牌, 1揭牌
+    // 0出牌, 1揭牌, 2过
     private Integer type;
     private String username;
     private ArrayList<Integer> play = new ArrayList<>();

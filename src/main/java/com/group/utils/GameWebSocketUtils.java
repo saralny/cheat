@@ -345,25 +345,27 @@ public final class GameWebSocketUtils {
         // 当前房间所有玩家
         ArrayList<Player> players = fm.getGr().getPlayers();
 
-
-        // 一圈人过,桌牌收入牌池
-        Integer passCount = 0;
-        for (int i = operates.size() - 1; i >= 0; i--) {
-            if (operates.get(i).getType() == 2){
-                if (++passCount == gr.getStartNumber()-1){
-                    gr.getPool().addAll(gr.getDesk());
-                }
-            }
-        }
-        gr.getDesk().clear();
-        gr.setState(null);
-
         // 记录本次操作
         Operate operate = new Operate();
         operate.setType(2);
         operate.setUsername(player.getUsername());
         operate.setGrid(gr.getId());
         operates.add(operate);
+
+        // 一圈人过,桌牌收入牌池
+        Integer passCount = 0;
+        for (int i = operates.size() - 1; i >= 0; i--) {
+            if (operates.get(i).getType() == 2){
+                passCount++;
+                if (passCount == players.size()-1){
+                    gr.getDesk().clear();
+                    gr.setState(null);
+                    gr.getPool().addAll(gr.getDesk());
+                }
+            }else {
+                break ;
+            }
+        }
 
         // 操作用户指向下一位
         Player remove = players.remove(0);

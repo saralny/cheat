@@ -104,7 +104,7 @@ $(function(){
     function victory() {
 
         if (hand.length == 0) {
-            $("#hand").html();
+            $("#handDiv").html("");
             if (response.current == username) {
                 over();
                 alert("胜利No." + (response.startNumber - offlineNumber - players.length + 1));
@@ -198,7 +198,7 @@ $(function(){
             handCode = handCode+"<div class=hand cardNumber="+ handSort[i] +">"
                 +flower(handSort[i])+"</div>";
         }
-        $("#hand").html(handCode);
+        $("#handDiv").html(handCode);
     }
 
     function candidate() {
@@ -295,8 +295,11 @@ $(function(){
         $("#matching").show();
         $("#schedule").html("");
         $("#desk").html("");
-        $("#hand").html("");
+        $("#handDiv").html("");
         $("#takeOutBtn, #stateDiv, #exposeBtn, #passBtn, #wait").hide();
+        hand = [];
+        play = [];
+        state = null;
     }
 
 
