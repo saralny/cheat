@@ -237,6 +237,8 @@ public final class GameWebSocketUtils {
         Integer state = gr.getState() == null ? fm.getState() : gr.getState();
         // 历史记录
         ArrayList<Operate> operates = gr.getOperates();
+        // 谈话
+        ArrayList<String> talk = gr.getTalk();
 
 
         // 从玩家手牌中扣除这部分
@@ -256,8 +258,7 @@ public final class GameWebSocketUtils {
         operate.setState(state);
         operate.setPlay(play);
         operates.add(operate);
-
-        // 添加桌牌
+        talk.add(player.getUsername() + ":" + chineseNumber(play.size()) + "张" + chineseCar(state));
         gr.getDesk().addAll(play);
 
         // 序列化房间返回前端
@@ -275,6 +276,8 @@ public final class GameWebSocketUtils {
         ArrayList<Integer> desk = gr.getDesk();
         // 历史记录
         ArrayList<Operate> operates = gr.getOperates();
+        // 谈话
+        ArrayList<String> talk = gr.getTalk();
         // 当前房间所有玩家
         ArrayList<Player> players = fm.getGr().getPlayers();
         // 当前玩家
@@ -327,6 +330,7 @@ public final class GameWebSocketUtils {
         o.setType(1);
         o.setState(null);
         gr.getOperates().add(o);
+        talk.add(player.getUsername() + ":不信");
 
         // 序列化房间返回前端
         String grStr = new ObjectMapper().writeValueAsString(gr);
@@ -340,6 +344,8 @@ public final class GameWebSocketUtils {
         GameRoom gr = fm.getGr();
         // 历史记录
         ArrayList<Operate> operates = gr.getOperates();
+        // 谈话
+        ArrayList<String> talk = gr.getTalk();
         // 当前玩家
         Player player = fm.getPlayer();
         // 当前房间所有玩家
@@ -351,6 +357,7 @@ public final class GameWebSocketUtils {
         operate.setUsername(player.getUsername());
         operate.setGrid(gr.getId());
         operates.add(operate);
+        talk.add(player.getUsername() + ":过");
 
         // 一圈人过,桌牌收入牌池
         Integer passCount = 0;
@@ -397,7 +404,7 @@ public final class GameWebSocketUtils {
         }
 
         // 通知其他玩家
-        String msg = "玩家:" + player.getUsername() + "胜利 No." + (gr.getStartNumber() - players.size());
+        String msg = "系统:" + player.getUsername() + "胜利 No." + (gr.getStartNumber() - players.size());
         gr.getTalk().add(msg);
 
         // 操作用户指向下一位
@@ -417,6 +424,52 @@ public final class GameWebSocketUtils {
 
         // 删除房间
         GAME_ROOMS.remove(gr);
+    }
+
+    public static Integer flower(Integer cardNumber) {
+        if (cardNumber - 39 > 0){
+            return (cardNumber - 39);
+        }
+        if (cardNumber - 26 > 0){
+            return (cardNumber - 26);
+        }
+        if (cardNumber - 13 > 0){
+            return (cardNumber - 13);
+        }
+        return cardNumber;
+    }
+
+    public static String chineseNumber(Integer number) {
+        Integer flower = flower(number);
+        String cn = null;
+        switch (flower) {
+            case 1 : cn =  "一";break;
+            case 2 : cn =  "两";break;
+            case 3 : cn =  "三";break;
+            case 4 : cn =  "四";break;
+        }
+        return cn;
+    }
+
+    public static String chineseCar(Integer number) {
+        Integer flower = flower(number);
+        String cc = null;
+        switch (flower) {
+            case 1 : cc =  "一";break;
+            case 2 : cc =  "二";break;
+            case 3 : cc =  "三";break;
+            case 4 : cc =  "四";break;
+            case 5 : cc =  "五";break;
+            case 6 : cc =  "六";break;
+            case 7 : cc =  "七";break;
+            case 8 : cc =  "八";break;
+            case 9 : cc =  "九";break;
+            case 10 : cc =  "十";break;
+            case 11 : cc =  "J";break;
+            case 12 : cc =  "Q";break;
+            case 13 : cc =  "K";break;
+        }
+        return cc;
     }
 
 }

@@ -57,16 +57,15 @@ $(function(){
 
         ws.onmessage = function(event){
             response = $.parseJSON(event.data);
-
+            players = response.players;
             // 匹配
             if (response.status == 0){
-                var schedule = "当前人数:" + response.players.length + "/" + response.startNumber + "&nbsp 匹配中...";
+                var schedule = "当前人数:" + players.length + "/" + response.startNumber + "&nbsp 匹配中...";
                 $("#schedule").html(schedule);
             }
 
             // 对局
             if (response.status == 1){
-                players = response.players;
 
                 for(var j = 0;j < players.length;j++){
                     if(players[j].username == username){
@@ -92,12 +91,19 @@ $(function(){
         var talkHtml = "";
         var talkArr = response.talk;
         for(var i = 0;i < talkArr.length;i++){
-            talkHtml = talkHtml + talkArr[i] + "<br/>";
+            offlineNumber = 0;
             if(talkArr[i].indexOf("退出游戏") != -1){
                 offlineNumber++;
             }
         }
 
+        for(var i = players.length; i > 0; i--){
+            if (i > talkArr.length) {
+                continue ;
+            }
+            talkHtml += talkArr[talkArr.length - i] + "</br>";
+        }
+        $("#talkDiv").html("");
         $("#talkDiv").html(talkHtml);
     }
 
@@ -107,8 +113,8 @@ $(function(){
             $("#handDiv").html("");
             if (response.current == username) {
                 over();
-                alert("胜利No." + (response.startNumber - offlineNumber - players.length + 1));
                 ws.send("username=" + username + "&operateType=3&grid=" + response.id);
+                alert("胜利No." + (response.startNumber - offlineNumber - players.length + 1));
             }
             return ;
         }
@@ -119,8 +125,8 @@ $(function(){
             if (offlineNumber != 0) {
                 alert("胜利No." + (response.startNumber - offlineNumber - players.length + 1));
             } else {
-                alert("胜败乃兵家常事,大侠请重新来过");
                 ws.send("username=" + username + "&operateType=4&grid=" + response.id);
+                alert("胜败乃兵家常事,大侠请重新来过");
             }
             return ;
         }
