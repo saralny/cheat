@@ -25,7 +25,6 @@ import static com.group.utils.GameWebSocketUtils.*;
 @RestController
 @ServerEndpoint("/game/kid")
 public class GameServerEndpoint {
-    private static final Logger log = LoggerFactory.getLogger(ChatRoomServerEndpoint.class);
 
     @OnOpen
     public void openSession(Session session) throws JsonProcessingException {
