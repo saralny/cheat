@@ -17,19 +17,16 @@
  */
 package com.group;
 
-import com.group.repository.common.BaseRepositoryFactoryBean;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
-@EnableJpaRepositories(basePackages = {"com.group.repository"},
-        repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class//指定自己的工厂类
-)
 @EnableWebSocket
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class Run {
     public static void main(String[] args) {
         SpringApplication.run(Run.class, args);
